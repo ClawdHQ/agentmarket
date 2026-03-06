@@ -1,0 +1,25 @@
+node_modules/
+dist/
+.env
+.env.local
+**/.env
+**/.env.local
+deployments.json
+cache/
+artifacts/
+typechain-types/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+*.log
+
+# CRE local and generated files
+cre-workflows/local-secrets.json
+cre-workflows/**/secrets/*.json
+cre-workflows/**/.cre_build_tmp.js
+cre-workflows/simulation*.log
+
+# OS/editor
+.DS_Store
+.vscode/settings.json
