@@ -1,0 +1,35 @@
+# example-service/workflow.yaml
+# Metadata for the AgentMarket Research AI Service Workflow
+
+version: "1"
+name: agentmarket-research-service
+description: "AI-driven autonomous researcher that fulfills requests and requires 0x402 payments."
+owner: "${OWNER_ADDRESS}"
+
+# Trigger configuration
+trigger:
+  id: http
+  config: {}
+
+# Capabilities
+capabilities:
+  - id: http
+  - id: confidentialHttp
+  - id: runInNodeMode
+
+# Target settings
+local:
+  user-workflow:
+    workflow-name: "agentmarket-research-service"
+  workflow-artifacts:
+    workflow-path: "./workflow.ts"
+    config-path: "./config.json"
+    secrets-path: "../secrets.yaml"
+
+sepolia:
+  user-workflow:
+    workflow-name: "agentmarket-research-service"
+  workflow-artifacts:
+    workflow-path: "./workflow.ts"
+    config-path: "./config.json"
+    secrets-path: "../secrets.yaml"

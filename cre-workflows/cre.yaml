@@ -1,0 +1,22 @@
+# project.yaml
+# Global configuration for AgentMarket CRE project
+
+version: "1"
+
+# Target networks (for RPCs and contract reads)
+targets:
+  - id: local
+    chainId: 11155111
+    rpcUrl: ${SEPOLIA_RPC_URL}
+  - id: sepolia
+    chainId: 11155111
+    rpcUrl: ${SEPOLIA_RPC_URL}
+
+# Define mapping for secrets to be available in workflows
+secrets:
+  - id: gemini-api-key
+    value: ${GEMINI_API_KEY}
+  - id: backend-url
+    value: ${BACKEND_URL}
+  - id: workflow-registry-address
+    value: ${WORKFLOW_REGISTRY_ADDRESS}

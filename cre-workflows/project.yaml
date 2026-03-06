@@ -1,0 +1,16 @@
+# project.yaml
+# Global configuration for AgentMarket CRE project
+
+version: "1"
+
+local:
+  rpcs:
+    - chain-name: ethereum-testnet-sepolia
+      url: "https://eth-sepolia.g.alchemy.com/v2/3MMaXlOkQyjVCCW1HNbY67u_BlkXI3Ff"
+
+sepolia:
+  account:
+    workflow-owner-address: "0x9f2EdCE3a34e42eaf8f965d4E14aDDd12Cf865f4"
+  rpcs:
+    - chain-name: ethereum-testnet-sepolia
+      url: "https://eth-sepolia.g.alchemy.com/v2/3MMaXlOkQyjVCCW1HNbY67u_BlkXI3Ff"

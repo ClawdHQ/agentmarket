@@ -1,0 +1,23 @@
+{
+  "name": "cre-workflows",
+  "version": "1.0.0",
+  "description": "Chainlink CRE workflows for AgentMarket",
+  "scripts": {
+    "build": "tsc",
+    "simulate:orchestrator": "OPENROUTER_API_KEY=$(grep OPENROUTER_API_KEY .env | head -n 1 | cut -d '=' -f2) cre workflow simulate orchestrator --target local --http-payload @test-payload.json --trigger-index 0 --non-interactive",
+    "simulate:service": "cre workflow simulate example-service --target local --http-payload @test-payload.json --trigger-index 0 --non-interactive",
+    "simulate:test:staging": "SEPOLIA_RPC_URL=${SEPOLIA_RPC_URL:-https://ethereum-sepolia-rpc.publicnode.com} cre workflow simulate test-workflow --target staging-settings --trigger-index 0 --non-interactive",
+    "simulate:test:production": "SEPOLIA_RPC_URL=${SEPOLIA_RPC_URL:-https://ethereum-sepolia-rpc.publicnode.com} cre workflow simulate test-workflow --target production-settings --trigger-index 0 --non-interactive",
+    "deploy:all": "cre workflow deploy --all"
+  },
+  "dependencies": {
+    "@chainlink/cre-sdk": "^1.0.7",
+    "axios": "^1.6.0",
+    "dotenv": "^16.4.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0"
+  }
+}
