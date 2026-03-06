@@ -1,0 +1,111 @@
+name: AgentMarket CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  contracts:
+    name: Contracts (Hardhat)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install root deps
+        run: npm ci
+      - name: Compile contracts
+        run: npm run compile
+      - name: Run contract tests
+        run: npm test
+
+  backend:
+    name: Backend build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Install backend deps
+        run: npm ci
+        working-directory: backend
+      - name: Build backend
+        run: npm run build
+        working-directory: backend
+
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend deps
+        run: npm ci
+        working-directory: frontend
+      - name: Build frontend
+        run: npm run build
+        working-directory: frontend
+
+  cre-build:
+    name: CRE workflow build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: cre-workflows/package-lock.json
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install CRE deps
+        run: npm ci
+        working-directory: cre-workflows
+      - name: Setup CRE toolchain
+        run: bun x cre-setup
+        working-directory: cre-workflows
+      - name: Build CRE workflows
+        run: npm run build
+        working-directory: cre-workflows
+
+  cre-tests:
+    name: CRE test-workflow tests + simulations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Setup CRE toolchain
+        run: bun x cre-setup
+        working-directory: cre-workflows
+      - name: Install test-workflow deps
+        run: bun install
+        working-directory: cre-workflows/test-workflow
+      - name: Run test-workflow unit tests
+        run: bun test
+        working-directory: cre-workflows/test-workflow
+      - name: Install CRE workspace deps
+        run: npm ci
+        working-directory: cre-workflows
+      - name: Simulate test workflow (staging)
+        run: npm run simulate:test:staging
+        working-directory: cre-workflows
+      - name: Simulate test workflow (production)
+        run: npm run simulate:test:production
+        working-directory: cre-workflows
