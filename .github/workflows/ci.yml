@@ -6,6 +6,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   contracts:
     name: Contracts (Hardhat)
@@ -81,16 +84,21 @@ jobs:
         working-directory: cre-workflows
 
   cre-tests:
-    name: CRE test-workflow tests + simulations
+    name: CRE test-workflow tests + build validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+          cache-dependency-path: cre-workflows/package-lock.json
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+      - name: Install CRE workspace deps
+        run: npm ci
+        working-directory: cre-workflows
       - name: Setup CRE toolchain
         run: bun x cre-setup
         working-directory: cre-workflows
@@ -100,12 +108,9 @@ jobs:
       - name: Run test-workflow unit tests
         run: bun test
         working-directory: cre-workflows/test-workflow
-      - name: Install CRE workspace deps
-        run: npm ci
+      - name: Compile test workflow to WASM (staging)
+        run: bun x cre-compile test-workflow/main.ts test-workflow/main.staging.wasm
         working-directory: cre-workflows
-      - name: Simulate test workflow (staging)
-        run: npm run simulate:test:staging
-        working-directory: cre-workflows
-      - name: Simulate test workflow (production)
-        run: npm run simulate:test:production
+      - name: Compile test workflow to WASM (production)
+        run: bun x cre-compile test-workflow/main.ts test-workflow/main.production.wasm
         working-directory: cre-workflows
