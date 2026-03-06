@@ -19,6 +19,9 @@ cre-workflows/local-secrets.json
 cre-workflows/**/secrets/*.json
 cre-workflows/**/.cre_build_tmp.js
 cre-workflows/simulation*.log
+cre-workflows/**/*.wasm
+cre-workflows/**/*.staging.js
+cre-workflows/**/*.production.js
 
 # OS/editor
 .DS_Store
