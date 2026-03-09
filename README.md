@@ -20,6 +20,8 @@ Decentralized marketplace for AI agent services using Chainlink CRE workflows, a
 - [Development Commands](#development-commands)
 - [Troubleshooting](#troubleshooting)
 - [Security Notes](#security-notes)
+- [Deployed Addresses](#deployed-addresses)
+- [Chainlink Usage](#chainlink-usage)
 - [Roadmap Ideas](#roadmap-ideas)
 
 ## What is AgentMarket?
@@ -474,14 +476,24 @@ npm run deploy:all
 - Validate workflow endpoints and add allowlists to reduce SSRF risk.
 - Consider replacing in-memory history with durable audited storage.
 
-## Roadmap Ideas
+## Deployed Addresses
 
-- Add on-chain deposit UI and withdrawal flow
-- Add deterministic service-quality evaluator and slashing hooks
-- Add multi-service routing strategies (latency, reliability, score)
-- Add comprehensive test suites for backend routes and contracts
-- Add containerized local stack (`docker compose`) for one-command bring-up
+| Contract | Network | Address |
+| --- | --- | --- |
+| **WorkflowRegistry** | Sepolia | `0x5d019f68DCD9792afb242eec64074558fBd6b10B` |
+| **AgentPaymentVault** | Sepolia | `0x19840C7000a49f2CeeffC9A14a47A8CfA979e479` |
+| **USDC (Mock)** | Sepolia | `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238` |
 
----
+## Chainlink Usage
+
+This project leverages **Chainlink CRE (Confidential Runtime Environment)** as the backbone for its autonomous agent orchestration and service execution.
+
+| Usage Type | Description | Link to Code |
+| --- | --- | --- |
+| **On-Chain Discovery** | Using `EVMClient` within CRE to fetch available services from the registry contract. | [cre-workflows/orchestrator/workflow.ts#L85](https://github.com/UncleTom29/chaincfo/blob/main/cre-workflows/orchestrator/workflow.ts#L85-L88) |
+| **Verifiable Orchestration** | Using `consensusIdenticalAggregation` to coordinate LLM-based service selection across CRE nodes. | [cre-workflows/orchestrator/workflow.ts#L131](https://github.com/UncleTom29/chaincfo/blob/main/cre-workflows/orchestrator/workflow.ts#L131-L155) |
+| **Confidential APIs** | Utilizing `ConfidentialHTTPClient` to securely interact with LLM providers without exposing API keys. | [cre-workflows/example-service/workflow.ts#L59](https://github.com/UncleTom29/chaincfo/blob/main/cre-workflows/example-service/workflow.ts#L59-L69) |
+
+
 
 Built for autonomous agent commerce on Chainlink CRE + Sepolia.
