@@ -490,9 +490,10 @@ This project leverages **Chainlink CRE (Confidential Runtime Environment)** as t
 
 | Usage Type | Description | Link to Code |
 | --- | --- | --- |
-| **On-Chain Discovery** | Using `EVMClient` within CRE to fetch available services from the registry contract. | [cre-workflows/orchestrator/workflow.ts#L85](https://github.com/UncleTom29/chaincfo/blob/main/cre-workflows/orchestrator/workflow.ts#L85-L88) |
-| **Verifiable Orchestration** | Using `consensusIdenticalAggregation` to coordinate LLM-based service selection across CRE nodes. | [cre-workflows/orchestrator/workflow.ts#L131](https://github.com/UncleTom29/chaincfo/blob/main/cre-workflows/orchestrator/workflow.ts#L131-L155) |
-| **Confidential APIs** | Utilizing `ConfidentialHTTPClient` to securely interact with LLM providers without exposing API keys. | [cre-workflows/example-service/workflow.ts#L59](https://github.com/UncleTom29/chaincfo/blob/main/cre-workflows/example-service/workflow.ts#L59-L69) |
+| **On-Chain Discovery** | Using `EVMClient` within CRE to fetch available services from the registry contract. | [cre-workflows/orchestrator/workflow.ts#L85](https://github.com/ClawdHQ/agentmarket/blob/main/cre-workflows/orchestrator/workflow.ts#L85-L88) |
+| **Verifiable Orchestration** | Using `consensusIdenticalAggregation` to coordinate LLM-based service selection across CRE nodes. | [cre-workflows/orchestrator/workflow.ts#L131](https://github.com/ClawdHQ/agentmarket/blob/main/cre-workflows/orchestrator/workflow.ts#L131-L155) |
+| **Confidential APIs** | Utilizing `ConfidentialHTTPClient` to securely interact with LLM providers without exposing API keys. | [cre-workflows/example-service/workflow.ts#L59](https://github.com/ClawdHQ/agentmarket/blob/main/cre-workflows/example-service/workflow.ts#L59-L69) |
+
 
 
 
